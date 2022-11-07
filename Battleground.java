@@ -1,4 +1,5 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
+import greenfoot.GreenfootSound;
 
 /**
  * Write a description of class Battleground here.
@@ -10,13 +11,17 @@ public class Battleground extends World
 {
     private Actor timerDisplay = new SimpleActor();
     private Actor scoreDisplay = new SimpleActor();
-    private Actor GameOverDisplay = new SimpleActor();
+    private Actor gameOverDisplay = new SimpleActor();
     private int score;
     private int timeElapsed;
     private int timeCounter; 
+    private int bossHp;
     
     private int maxEnemies;
+    private int enemyLvl;
     private int timecache;
+    
+    private int[] enemySpawnlocation;
     /**
      * Constructor for objects of class Battleground.
      * 
@@ -32,14 +37,19 @@ public class Battleground extends World
         addObject(timerDisplay,50,20);
         addObject(scoreDisplay,950,20);
         
+        enemyLvl = 1;
         maxEnemies = 1;
-        score = -1;
+        score = 23;
+        bossHp = 4;
     }
     public void act(){
         timeCounter = (timeCounter+1)%55;
         if (timeCounter == 0){
             timeElapsed++;
             updateTimerDisplay();
+        }
+        if (enemyLvl == 3){
+            checkBossStatus();
         }
         updateScoreDisplay();
         enemySpawnControll();
@@ -49,21 +59,48 @@ public class Battleground extends World
         timerDisplay.setImage(new GreenfootImage("Timer: "+ timeElapsed, 24, null, null));
     }
     private void updateScoreDisplay(){
-        if (getObjects(Enemybody.class).size() < maxEnemies){
-            score++;   
+        if (enemyLvl == 3){
+            scoreDisplay.setImage(new GreenfootImage("BOSS", 24, null, null));    
+        } else{
+            scoreDisplay.setImage(new GreenfootImage("Score: "+ score, 24, null, null));
         }
-        scoreDisplay.setImage(new GreenfootImage("Score: "+ score, 24, null, null));
+        
     }
     
     private void enemySpawnControll(){
-        if (getObjects(Enemybody.class).size() < maxEnemies){
-            int[] spawnlocation = getSpawnLocation();
-            Enemybody newEnemyBody = new Enemybody();
-            addObject(newEnemyBody, spawnlocation[0],spawnlocation[1]);
-            Ghostturret newGhostturret = new Ghostturret(newEnemyBody);
-            addObject(newGhostturret,spawnlocation[0],spawnlocation[1]);
-            Enemyturret newEnemyTurret = new Enemyturret(newEnemyBody,newGhostturret);
-            addObject(newEnemyTurret, spawnlocation[0],spawnlocation[1]);
+        if (score < 4){
+            enemyLvl = 1;
+            maxEnemies = 1;
+        } else if (score >= 4 && score < 8){
+            enemyLvl = 1;
+            maxEnemies = 2;
+        } else if (score >= 8 && score < 14){
+            enemyLvl = 1;
+            maxEnemies = 3;
+        } else if (score >= 14 && score < 16){
+            enemyLvl = 2;
+            maxEnemies = 1;
+        } else if (score >= 16 && score < 20){
+            enemyLvl = 2;
+            maxEnemies = 2;
+        } else if (score >= 20 && score <= 26){
+            enemyLvl = 2;
+            maxEnemies = 3;
+        } else if (score > 26){
+            enemyLvl = 3;
+            maxEnemies = 1;
+        }
+
+        if (getObjects(Enemybody.class).size() == 0){
+            while (getObjects(Enemybody.class).size() < maxEnemies){
+                enemySpawnlocation = getSpawnLocation();
+                Enemybody newEnemyBody = new Enemybody(enemyLvl);
+                addObject(newEnemyBody, enemySpawnlocation[0],enemySpawnlocation[1]);
+                Ghostturret newGhostturret = new Ghostturret(newEnemyBody);
+                addObject(newGhostturret,enemySpawnlocation[0],enemySpawnlocation[1]);
+                Enemyturret newEnemyTurret = new Enemyturret(newEnemyBody,newGhostturret);
+                addObject(newEnemyTurret, enemySpawnlocation[0],enemySpawnlocation[1]);
+            }
         }
     }
     public void prepare()
@@ -81,10 +118,10 @@ public class Battleground extends World
         int xCoordinate;
         int yCoordinate;
         if (Greenfoot.getRandomNumber(2) == 1){
-            yCoordinate = 790;
+            yCoordinate = 800;
             xCoordinate = Greenfoot.getRandomNumber(900-200+1) + 200;
         } else {
-            xCoordinate = 990;
+            xCoordinate = 1000;
             yCoordinate = Greenfoot.getRandomNumber(700-200+1) + 200;
         }
             
@@ -94,9 +131,38 @@ public class Battleground extends World
     }
     public void checkPlayerStatus(){
         if (getObjects(Playerbody.class).isEmpty()){
-            addObject(GameOverDisplay,500,400);
-            GameOverDisplay.setImage(new GreenfootImage("GAME OVER", 40, null, null));
+            addObject(gameOverDisplay,500,400);
+            gameOverDisplay.setImage(new GreenfootImage("GAME OVER", 60, new Color(204,51,0), null));
+            GreenfootSound loss = new GreenfootSound("lost.mp3");
+            loss.setVolume(15);
+            loss.play();
             Greenfoot.stop();
         }
     }
+    public void checkBossStatus(){
+        if (bossHp == 0){
+            addObject(gameOverDisplay,500,400);
+            gameOverDisplay.setImage(new GreenfootImage("YOU WIN", 60, new Color(0,153,0), null));
+            GreenfootSound win = new GreenfootSound("win.mp3");
+            win.setVolume(15);
+            win.play();
+            Greenfoot.stop();
+        }
+    }
+    public void addScore(){
+        this.score++;
+    }
+    public int getLvl(){
+        return enemyLvl;
+    }
+    public void reduceBossHp(){
+        bossHp = bossHp-1;
+    }
+    public int getBossHp(){
+        return bossHp;
+    }
+    public void setBossHp(int hp){
+        this.bossHp = hp;
+    }
+    
 }

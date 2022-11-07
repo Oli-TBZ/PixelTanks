@@ -8,10 +8,11 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Ghostturret extends Enemy
 {
-    private Enemybody relatedTankBody;
+    private Enemybody relatedTankbody;
     
     public Ghostturret(Enemybody tankbody){
-        relatedTankBody = tankbody;
+        relatedTankbody = tankbody;
+        getImage().setTransparency(0);
     }
     
     /**
@@ -20,8 +21,8 @@ public class Ghostturret extends Enemy
      */
     public void act()
     {
-        if (relatedTankBody.getWorld() != null){
-            setLocation(relatedTankBody.getX(), relatedTankBody.getY());
+        if (relatedTankbody.getWorld() != null){
+            setLocation(relatedTankbody.getX(), relatedTankbody.getY());
             turnTowards(getPlayerX(), getPlayerY());
         } else{
             getWorld().removeObject(this);

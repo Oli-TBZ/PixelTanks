@@ -34,12 +34,14 @@ public class Playerbullet extends Player{
             getImage().setTransparency(255);
             firstrun = false;
         }
-        move(10);
+        move(6);
         if (isAtEdge() || isTouching(Enemybody.class)){
-            if (isTouching(Enemybody.class)){
-                //
+            if (isTouching(Enemybody.class) && ((Battleground) getWorld()).getLvl() != 3){
+                ((Battleground) getWorld()).addScore();
+                removeTouching(Enemybody.class);
+            } else{
+                ((Battleground) getWorld()).reduceBossHp();
             }
-            removeTouching(Enemybody.class);
             getWorld().removeObject(this);
         }
     }

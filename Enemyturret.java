@@ -8,7 +8,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Enemyturret extends Enemy
 {
-    private Enemybody relatedTankBody;
+    private Enemybody relatedTankbody;
     private Ghostturret relatedGhostturret;
     
     private int rotationspeed;
@@ -17,25 +17,48 @@ public class Enemyturret extends Enemy
     
     private int cooldown;
     private int lastShotTime;
-    
     private GreenfootSound shot = new GreenfootSound("shot.mp3");
+     private GreenfootSound bigshot = new GreenfootSound("bigshot.mp3");
+    private GreenfootImage image;
     
-    public Enemyturret(Enemybody tankBody, Ghostturret ghostturret){
-        GreenfootImage image = getImage();
-        image.scale(image.getWidth()* 2, image.getHeight()* 2);
-        setImage(image);
+    public Enemyturret(Enemybody relatedTankbody, Ghostturret relatedGhostturret){
+        this.relatedTankbody = relatedTankbody;
+        this.relatedGhostturret = relatedGhostturret;
+        this.lastShotTime = 2;
         
-        relatedTankBody = tankBody;
-        relatedGhostturret = ghostturret;
+        this.shot.setVolume(15);
+        this.bigshot.setVolume(15);
+        this.firststart = true;
         
-        rotationspeed = 1;
-        
-        lastShotTime = 2;
-        cooldown = 3;
-        
-        shot.setVolume(15);
-        
-        firststart = true;
+        if (relatedTankbody.getLvl() == 1){
+            image = getImage();
+            image.scale(image.getWidth()* 2, image.getHeight()* 2);
+            image.setTransparency(0);
+            setImage(image);
+            
+            this.cooldown = 3;
+            this.rotationspeed = 1;
+        }
+        else if (relatedTankbody.getLvl() == 2){
+            setImage("enemy_turretv2.png");
+            image = getImage();
+            image.scale(image.getWidth()* 2, image.getHeight()* 2);
+            image.setTransparency(0);
+            setImage(image);
+            
+            this.cooldown = 2;
+            this.rotationspeed = 2;
+        }
+        else if (relatedTankbody.getLvl() == 3){
+            setImage("enemy_turretv3.png");
+            image = getImage();
+            image.scale(image.getWidth()* 4, image.getHeight()* 4);
+            image.setTransparency(0);
+            setImage(image);
+            
+            this.cooldown = 2;
+            this.rotationspeed = 1;
+        }
     }
     
     /**
@@ -44,13 +67,14 @@ public class Enemyturret extends Enemy
      */
     public void act()
     {
-        if (relatedTankBody.getWorld() != null){
+        if (relatedTankbody.getWorld() != null){
             if (firststart){
                 turnTowards(getPlayerX(), getPlayerY());
                 firststart = false;
                 lastShotTime = getTime();
+                getImage().setTransparency(255);
             }
-            setLocation(relatedTankBody.getX(),relatedTankBody.getY());
+            setLocation(relatedTankbody.getX(),relatedTankbody.getY());
             aim();
         } else {
             getWorld().removeObject(this);
@@ -59,7 +83,7 @@ public class Enemyturret extends Enemy
     
     private void aim(){
         int targetRotation = relatedGhostturret.getPlayerDirection();
-        relatedTankBody.setPlayerDirection(targetRotation);
+        relatedTankbody.setPlayerDirection(targetRotation);
         int rotationDiff = targetRotation - getRotation();
         
         if (rotationDiff < -179){
@@ -75,17 +99,29 @@ public class Enemyturret extends Enemy
             turn(-rotationspeed);
         }
         if (rotationDiff < rotationspeed && rotationDiff > -rotationspeed){
-            setRotation(targetRotation);
-            fire();
+            if (relatedTankbody.getLvl() == 3){
+                setRotation(targetRotation);
+                fire(1);       
+            } else{
+                setRotation(targetRotation);
+                fire(0);    
+            }
+            
         }
     }
-    
-    private void fire(){
+    private void fire(int mode){
         if (lastShotTime + cooldown <= getTime()){
-            Enemybullet enemybullet = new Enemybullet(relatedTankBody.getX(),relatedTankBody.getY(), getRotation());
-            getWorld().addObject(enemybullet,relatedTankBody.getX(),relatedTankBody.getY());
-            lastShotTime = getTime();
-            shot.play();
+            if (mode == 1){  
+                Enemybullet enemybullet1 = new Enemybullet(relatedTankbody.getX(),relatedTankbody.getY(), getRotation(), mode);
+                getWorld().addObject(enemybullet1,relatedTankbody.getX(),relatedTankbody.getY());
+                lastShotTime = getTime();
+                bigshot.play();  
+            } else{
+                Enemybullet enemybullet = new Enemybullet(relatedTankbody.getX(),relatedTankbody.getY(), getRotation(), mode);
+                getWorld().addObject(enemybullet,relatedTankbody.getX(),relatedTankbody.getY());
+                lastShotTime = getTime();
+                shot.play();   
+            }
         }
     }
 }

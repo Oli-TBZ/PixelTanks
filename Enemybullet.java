@@ -9,13 +9,22 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class Enemybullet extends Enemy{
     
     private boolean firstrun;
+    private int speed;
 
-    public Enemybullet(int xLocation, int yLocation, int rotation){
+    public Enemybullet(int xLocation, int yLocation, int rotation, int mode){
         setLocation(xLocation,yLocation);
         setRotation(rotation);
         
         GreenfootImage image = getImage();
-        image.scale(image.getWidth()/ 2, image.getHeight()/ 2);
+        
+        if (mode == 1){
+            this.speed = 5;
+            image.scale(image.getWidth()*2, image.getHeight()*2);  
+        } else{
+            image.scale(image.getWidth()/2, image.getHeight()/2);  
+            this.speed = 5;
+        }
+        
         image.setTransparency(0);
         setImage(image);
         
@@ -34,7 +43,7 @@ public class Enemybullet extends Enemy{
             getImage().setTransparency(255);
             firstrun = false;
         }
-        move(10);
+        move(speed);
         if (isAtEdge() || isTouching(Playerbody.class)){
             removeTouching(Playerbody.class);
             getWorld().removeObject(this);
