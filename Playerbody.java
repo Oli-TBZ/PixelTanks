@@ -8,10 +8,15 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Playerbody extends Player
 {
+    private GreenfootSound engine = new GreenfootSound("engine.mp3");
+    
     public Playerbody(){
         GreenfootImage image = getImage();
         image.scale(image.getWidth()*2, image.getHeight()*2);
         setImage(image);
+        
+        engine.setVolume(5);
+        
     }
     /**
      * Act - do whatever the body wants to do. This method is called whenever
@@ -20,6 +25,7 @@ public class Playerbody extends Player
     public void act()
     {
         drive();
+        engine.playLoop();
         turn();
     }
 }

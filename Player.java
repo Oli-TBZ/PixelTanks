@@ -1,7 +1,7 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class player here.
+ * The Player class is the parent class of all the player objects. It contains universal functions that can be
  * 
  * @author (your name) 
  * @version (a version number or a date)
@@ -14,30 +14,57 @@ public class Player extends Actor
      */
     public void act()
     {
-        
+
     }
     public void drive(){
         if (Greenfoot.isKeyDown("w")){
-           move (2);        
+           move (2);
+           
         }
         if (Greenfoot.isKeyDown("s")){
            move (-2);
+           
         }    
     }
     public void turn(){
          if (Greenfoot.isKeyDown("d")){
-           turn (3);
+           turn (2);
+           //adjustAngle(-1);
         }
         if (Greenfoot.isKeyDown("a")){
-           turn (-3);
+           turn (-2);
+           //adjustAngle(-1);
         }
     }
     public void aim(){
         if (Greenfoot.isKeyDown("right")){
-           turn(1);
+           turn(2);
+           //adjustAngle(2);
         }
         if (Greenfoot.isKeyDown("left")){
-           turn(-1);
+           turn(-2);
+           //adjustAngle(-2);
         }
     }
+    public int getPlayerX(){
+        if (!getWorld().getObjects(Playerbody.class).isEmpty()){
+            Actor reference = getWorld().getObjects(Playerbody.class).get(0);
+            return reference.getX();
+        } else {
+            return 0;
+        }
+    }
+    public int getPlayerY(){
+        if (!getWorld().getObjects(Playerbody.class).isEmpty()){
+            Actor reference = getWorld().getObjects(Playerbody.class).get(0);
+            return reference.getY();
+        } else {
+            return 0;
+        }
+    }
+    public int getTime(){
+        Battleground world = (Battleground) getWorld();
+        return world.getTime();
+    }
+    
 }

@@ -8,10 +8,19 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Playerturret extends Player
 {
+    private int cooldown;
+    private int lastShotTime;
+    private GreenfootSound shot = new GreenfootSound("shot.mp3");
+    
     public Playerturret(){
         GreenfootImage image = getImage();
         image.scale(image.getWidth()* 2, image.getHeight()* 2);
         setImage(image);
+        
+        shot.setVolume(15);
+        
+        lastShotTime = -2;
+        cooldown = 2;
     }
     /**
      * Act - do whatever the turret wants to do. This method is called whenever
@@ -19,14 +28,24 @@ public class Playerturret extends Player
      */
     public void act()
     {
-        //Schauen ob es einen Playerbody hat
-        if (!getWorld().getObjects(Playerbody.class).isEmpty()){
-            Actor reference = getWorld().getObjects(Playerbody.class).get(0);
-            setLocation(reference.getX(), reference.getY());
-        }
+    if (!getWorld().getObjects(Playerbody.class).isEmpty()){
+        setLocation(getPlayerX(), getPlayerY());
         turn();
         aim();
+        if (Greenfoot.isKeyDown("space")){
+                fire();
+        }
+    } else {
+        getWorld().removeObject(this);
     }
-    
-    
+    }
+    public void fire(){
+        if (lastShotTime + cooldown <= getTime()){
+            Playerbullet playerbullet = new Playerbullet(getPlayerX(), getPlayerY(), getRotation());
+            getWorld().addObject(playerbullet,getPlayerX(), getPlayerY());
+            lastShotTime = getTime();
+            
+            shot.play();
+        }
+    }
 }
