@@ -1,12 +1,13 @@
-------------------------------------------------------------------------
-This is the project README file. Here, you should describe your project.
-Tell the reader (someone who does not know anything about this project)
-all they need to know. The comments should usually include at least:
-------------------------------------------------------------------------
+PROJECT TITLE: PixelTanks
+PURPOSE OF PROJECT: PixelTanks is a 2D-Minigame with tanks. Created with Greenfoot.
+https://greenfoot.org/
+VERSION: Stable Version 1.1, 08.11.2022
+HOW TO START THIS PROJECT: Download Greenfoot, repo and lets go :)
+AUTHORS: Oliver Ammann & Senthil Nagendran
 
-PROJECT TITLE:
-PURPOSE OF PROJECT:
-VERSION or DATE:
-HOW TO START THIS PROJECT:
-AUTHORS:
-USER INSTRUCTIONS:
+DETAILS:
+Fight your way through waves of enemy tanks!
+Control your tank with WASD and turn your turret with arrow left and right ^^
+
+Depending on your kills, your score will increase and so will the strengh and amount of enemies... Survive and eliminate them, soldier!
+Watch out if you reach a score of 26 tho...
