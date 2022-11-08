@@ -56,7 +56,7 @@ public class Enemybullet extends Enemy{
         move(speed);
         //check if player or edge has been touched
         if (isAtEdge() || isTouching(Playerbody.class)){
-            //removeTouching(Playerbody.class);
+            removeTouching(Playerbody.class);
             getWorld().removeObject(this);
         }
     }
