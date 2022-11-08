@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.target=Enemyturret
-comment0.text=\r\n\ Subclass\ of\ enemy\ class.\ The\ enemyturret\ follows\ the\ X\ coordinates\ of\ the\ related\ Tankbody\ to\ stay\ in\ position.\ It\ receives\ the\ playerdirection\r\n\ the\ ghostturret\ class\ and\ tries\ to\ match\ that\ angle\ and\ fire\ at\ player.\r\n\ \r\n\ @OliverAmmann\ &\ @SenthilNagendran\r\n\ Stable\ Version\ 1.1\r\n
+comment0.text=\r\n\ Write\ a\ description\ of\ class\ Enemyturret\ here.\r\n\ \r\n\ @author\ (your\ name)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
 comment1.params=relatedTankbody\ relatedGhostturret
 comment1.target=Enemyturret(Enemybody,\ Ghostturret)
 comment2.params=

@@ -1,10 +1,11 @@
 #BlueJ class context
 comment0.target=Playerturret
-comment0.text=\r\n\ Subclass\ of\ player\ class.\ The\ playerturret\ follows\ the\ X\ coordinates\ of\ the\ player-Tankbody\ to\ stay\ in\ position.\r\n\ It\ can\ turn\ together\ with\ the\ body\ or\ turn\ seperatly.\ Also\ it\ checks\ the\ time\ to\ implement\ a\ cooldown\ to\ shoot.\r\n\ \r\n\ @OliverAmmann\ &\ @SenthilNagendran\r\n\ Stable\ Version\ 1.1\r\n
+comment0.text=\r\n\ Write\ a\ description\ of\ class\ turret\ here.\r\n\ \r\n\ @author\ (your\ name)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
 comment1.params=
 comment1.target=Playerturret()
 comment2.params=
 comment2.target=void\ act()
+comment2.text=\r\n\ Act\ -\ do\ whatever\ the\ turret\ wants\ to\ do.\ This\ method\ is\ called\ whenever\r\n\ the\ 'Act'\ or\ 'Run'\ button\ gets\ pressed\ in\ the\ environment.\r\n
 comment3.params=
 comment3.target=void\ fire()
 numComments=4

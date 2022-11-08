@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.target=Enemybullet
-comment0.text=\r\n\ Subclass\ of\ enemy\ class.\ The\ enemybullet\ is\ the\ bullet,\ enemy-tanks\ use\ to\ kill\ the\ player.\ \r\n\ It\ just\ moves\ in\ the\ direction\ given\ and\ checks\ for\ contact.\ Also\ it\ checks\ the\ time\ to\ implement\ a\ cooldown\ to\ shoot.\r\n\ \r\n\ @OliverAmmann\ &\ @SenthilNagendran\r\n\ Stable\ Version\ 1.1\r\n
+comment0.text=\r\n\ Write\ a\ description\ of\ class\ playerbullet\ here.\r\n\ \r\n\ @author\ (your\ name)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
 comment1.params=xLocation\ yLocation\ rotation\ mode
 comment1.target=Enemybullet(int,\ int,\ int,\ int)
 comment2.params=
