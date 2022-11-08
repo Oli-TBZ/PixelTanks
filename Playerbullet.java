@@ -1,10 +1,11 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class playerbullet here.
+ * Subclass of enemy class. The playerbullet is the bullet used to kill the the enemy tanks. 
+ * It just moves in the direction given and checks for contact
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @OliverAmmann & @SenthilNagendran
+ * Stable Version 1.1
  */
 public class Playerbullet extends Player{
     
@@ -35,6 +36,7 @@ public class Playerbullet extends Player{
             firstrun = false;
         }
         move(6);
+        //checks for contact
         if (isAtEdge() || isTouching(Enemybody.class)){
             if (isTouching(Enemybody.class) && ((Battleground) getWorld()).getLvl() != 3){
                 ((Battleground) getWorld()).addScore();

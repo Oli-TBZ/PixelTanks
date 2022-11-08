@@ -1,11 +1,10 @@
 #BlueJ class context
 comment0.target=Enemybody
-comment0.text=\r\n\ Write\ a\ description\ of\ class\ Enemybody\ here.\r\n\ \r\n\ @author\ (your\ name)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment0.text=\r\n\ Subclass\ of\ enemy\ class.\ The\ tankbody\ represent\ the\ main\ part\ of\ the\ enemy\ tank.\ Is\ responsible\ for\ most\ of\ the\ movement\ and\ logic.\r\n\ \r\n\ @OliverAmmann\ &\ @SenthilNagendran\r\n\ Stable\ Version\ 1.1\r\n
 comment1.params=lvl
 comment1.target=Enemybody(int)
 comment2.params=
 comment2.target=void\ act()
-comment2.text=\r\n\ Act\ -\ do\ whatever\ the\ Enemybody\ wants\ to\ do.\ This\ method\ is\ called\ whenever\r\n\ the\ 'Act'\ or\ 'Run'\ button\ gets\ pressed\ in\ the\ environment.\r\n
 comment3.params=rotation
 comment3.target=void\ setPlayerDirection(int)
 comment4.params=

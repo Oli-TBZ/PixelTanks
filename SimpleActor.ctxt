@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.target=SimpleActor
-comment0.text=\r\n\ The\ simple\ Actor\ is\ for\ universal\ use\ to\ display\ counters\ and\ score\ etc.\r\n\ It\ does\ not\ really\ do\ anything\ on\ its\ own\r\n\ \r\n\ @OliverAmmann\r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment0.text=\r\n\ The\ simple\ Actor\ is\ for\ universal\ use\ to\ display\ counters\ and\ score\ etc.\r\n\ It\ does\ not\ really\ do\ anything\ on\ its\ own\r\n\ \r\n\ @OliverAmmann\ &\ @SenthilNagendran\r\n\ Stable\ Version\ 1.1\r\n
 comment1.params=
 comment1.target=void\ act()
 comment1.text=\r\n\ Act\ -\ do\ whatever\ the\ simpleActor\ wants\ to\ do.\ This\ method\ is\ called\ whenever\r\n\ the\ 'Act'\ or\ 'Run'\ button\ gets\ pressed\ in\ the\ environment.\r\n

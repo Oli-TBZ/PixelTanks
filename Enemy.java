@@ -2,10 +2,10 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.util.ArrayList;
 
 /**
- * Write a description of class Enemy here.
+ * Parent Class of all enemy objects. Contains certain universal functions.
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @OliverAmmann & @SenthilNagendran
+ * Stable Version 1.1
  */
 public class Enemy extends Actor
 {
@@ -17,7 +17,7 @@ public class Enemy extends Actor
     {
         
     }
-    
+    //function to get player x coordinate
     public int getPlayerX(){
         if (!getWorld().getObjects(Playerbody.class).isEmpty()){
             Actor reference = getWorld().getObjects(Playerbody.class).get(0);
@@ -26,6 +26,7 @@ public class Enemy extends Actor
             return 0;
         }
     }
+    //functon to get player y coordinate
     public int getPlayerY(){
         if (!getWorld().getObjects(Playerbody.class).isEmpty()){
             Actor reference = getWorld().getObjects(Playerbody.class).get(0);
@@ -34,8 +35,7 @@ public class Enemy extends Actor
             return 0;
         }
     }
-    
-    
+    //function to get time from world
     public int getTime(){
         Battleground world = (Battleground) getWorld();
         return world.getTime();

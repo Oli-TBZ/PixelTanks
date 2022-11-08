@@ -10,17 +10,19 @@ import java.util.List;
  */
 public class Battleground extends World
 {
+    // Create SimpleActor intances for multipurpose displays
     private Actor timerDisplay = new SimpleActor();
     private Actor scoreDisplay = new SimpleActor();
     private Actor gameOverDisplay = new SimpleActor();
     private Actor startDisplay = new SimpleActor();
     private Actor creditsDisplay = new SimpleActor();
     
+    //set Variables
     private int score;
     private int timeElapsed;
     private int timeCounter; 
     private int bossHp;
-    
+
     private int maxEnemies;
     private int enemyLvl;
     private int timecache;
@@ -35,20 +37,22 @@ public class Battleground extends World
      */
     public Battleground()
     {    
-        // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
+        // Create a new world with 1000x800 cells with a cell size of 1x1 pixels.
         super(1000, 800, 1);
         prepare();
         act();
-        enemySpawnControll();
+        enemySpawnControl();
         updateTimerDisplay();
         addObject(timerDisplay,50,20);
         addObject(scoreDisplay,950,20);
         addObject(startDisplay, 500, 380);
         addObject(creditsDisplay, 500, 420);
         
+        //Set Start screen
         startDisplay.setImage(new GreenfootImage("PixelTanks", 70, null, null));
         creditsDisplay.setImage(new GreenfootImage("By Oliver Ammann & Senthil Nagendran", 30, null, null));
         
+        //set important game variables
         this.enemyLvl = 1;
         this.maxEnemies = 1;
         this.score = 0;
@@ -56,23 +60,27 @@ public class Battleground extends World
     }
     public void act(){
         timeCounter = (timeCounter+1)%55;
+        //Update timer
         if (timeCounter == 0){
             timeElapsed++;
             updateTimerDisplay();
         }
+        //check if Lvl = 3 (Bossfight) to check on Boss
         if (enemyLvl == 3){
             checkBossStatus();
             lvlmusic.stop();
             bossmusic.playLoop();
         } 
+        //Remove Startscreen
         if (startDisplay.getWorld() != null){
             removeObject(startDisplay);
             removeObject(creditsDisplay);
         }
         updateScoreDisplay();
-        enemySpawnControll();
+        enemySpawnControl();
         checkPlayerStatus();
     }
+    //function to update timer display
     private void updateTimerDisplay(){
         timerDisplay.setImage(new GreenfootImage("Timer: "+ timeElapsed, 24, null, null));
     }
@@ -85,7 +93,9 @@ public class Battleground extends World
         
     }
     
-    private void enemySpawnControll(){
+    //function to control the spawnrate of enemy tanks
+    private void enemySpawnControl(){
+        //check what score player has and increase difficulty
         if (score < 4){
             enemyLvl = 1;
             maxEnemies = 1;
@@ -109,6 +119,7 @@ public class Battleground extends World
             maxEnemies = 1;
         }
 
+        //check if all enemies have been killed and spawn next wave
         if (getObjects(Enemybody.class).size() == 0){
             while (getObjects(Enemybody.class).size() < maxEnemies){
                 enemySpawnlocation = getSpawnLocation();
@@ -121,6 +132,7 @@ public class Battleground extends World
             }
         }
     }
+    //prepare function to spawn player
     public void prepare()
     {
         Playerbody playerbody = new Playerbody();
@@ -132,9 +144,11 @@ public class Battleground extends World
         bossmusic.setVolume(10);
         lvlmusic.playLoop(); 
     }
+    // public function to get time 
     public int getTime(){
         return timeElapsed;
     }
+    //function to generate random spawnlocation for enemies
     public int[] getSpawnLocation()
     {
         int xCoordinate;
@@ -151,6 +165,7 @@ public class Battleground extends World
         return returnArray;
         
     }
+    //function to check if player is still alive or otherwise end game
     public void checkPlayerStatus(){
         if (getObjects(Playerbody.class).isEmpty()){
             addObject(gameOverDisplay,500,400);
@@ -164,6 +179,7 @@ public class Battleground extends World
             Greenfoot.stop();
         }
     }
+    //check if Boss is still alive or otherwise end game 
     public void checkBossStatus(){
         if (bossHp == 0){
             addObject(gameOverDisplay,500,400);
@@ -177,18 +193,23 @@ public class Battleground extends World
             Greenfoot.stop();
         }
     }
+    //public function to add playerscore + 1
     public void addScore(){
         this.score++;
     }
+    //public function to get level + 1
     public int getLvl(){
         return enemyLvl;
     }
+    //public function to reduce boss hp in boss stage
     public void reduceBossHp(){
         bossHp = bossHp-1;
     }
+    //public function to get bosshp in boss stage
     public int getBossHp(){
         return bossHp;
     }
+    //public function to set bosshp (Bugfix, just to be safe)
     public void setBossHp(int hp){
         this.bossHp = hp;
     }

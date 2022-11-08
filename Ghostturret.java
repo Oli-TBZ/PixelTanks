@@ -1,10 +1,11 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class ghostturret here.
+ * Subclass of enemy class. The enemyturret always looks in the players direction / has the right rotation-angle to kill the player
+ * this information gets passed on to te real turret for a delayed turn of turret
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @OliverAmmann & @SenthilNagendran
+ * Stable Version 1.1
  */
 public class Ghostturret extends Enemy
 {
@@ -21,6 +22,7 @@ public class Ghostturret extends Enemy
      */
     public void act()
     {
+        //check if relatedTankbody is still alive or otherwise remove class
         if (relatedTankbody.getWorld() != null){
             setLocation(relatedTankbody.getX(), relatedTankbody.getY());
             turnTowards(getPlayerX(), getPlayerY());
@@ -29,6 +31,7 @@ public class Ghostturret extends Enemy
         }
     }
     
+    //function to get direction of player for other classes
     public int getPlayerDirection(){
         return getRotation();
     }

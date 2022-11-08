@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.target=Ghostturret
-comment0.text=\r\n\ Write\ a\ description\ of\ class\ ghostturret\ here.\r\n\ \r\n\ @author\ (your\ name)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment0.text=\r\n\ Subclass\ of\ enemy\ class.\ The\ enemyturret\ always\ looks\ in\ the\ players\ direction\ /\ has\ the\ right\ rotation-angle\ to\ kill\ the\ player\r\n\ this\ information\ gets\ passed\ on\ to\ te\ real\ turret\ for\ a\ delayed\ turn\ of\ turret\r\n\ \r\n\ @OliverAmmann\ &\ @SenthilNagendran\r\n\ Stable\ Version\ 1.1\r\n
 comment1.params=tankbody
 comment1.target=Ghostturret(Enemybody)
 comment2.params=

@@ -1,10 +1,11 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class turret here.
+ * Subclass of player class. The playerturret follows the X coordinates of the player-Tankbody to stay in position.
+ * It can turn together with the body or turn seperatly. Also it checks the time to implement a cooldown to shoot.
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @OliverAmmann & @SenthilNagendran
+ * Stable Version 1.1
  */
 public class Playerturret extends Player
 {
@@ -22,14 +23,13 @@ public class Playerturret extends Player
         lastShotTime = -2;
         cooldown = 2;
     }
-    /**
-     * Act - do whatever the turret wants to do. This method is called whenever
-     * the 'Act' or 'Run' button gets pressed in the environment.
-     */
     public void act()
     {
+    //check if playerbody is still alive or otherwise remove this class
     if (!getWorld().getObjects(Playerbody.class).isEmpty()){
         setLocation(getPlayerX(), getPlayerY());
+        
+        //turn function and aim function. So if the tank turns the turret turns too.
         turn();
         aim();
         if (Greenfoot.isKeyDown("space")){
@@ -39,6 +39,7 @@ public class Playerturret extends Player
         getWorld().removeObject(this);
     }
     }
+    //create new instance of playerbullet and fire
     public void fire(){
         if (lastShotTime + cooldown <= getTime()){
             Playerbullet playerbullet = new Playerbullet(getPlayerX(), getPlayerY(), getRotation());

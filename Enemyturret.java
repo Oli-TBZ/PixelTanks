@@ -1,10 +1,11 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class Enemyturret here.
+ * Subclass of enemy class. The enemyturret follows the X coordinates of the related Tankbody to stay in position. It receives the playerdirection
+ * the ghostturret class and tries to match that angle and fire at player.
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @OliverAmmann & @SenthilNagendran
+ * Stable Version 1.1
  */
 public class Enemyturret extends Enemy
 {
@@ -12,13 +13,14 @@ public class Enemyturret extends Enemy
     private Ghostturret relatedGhostturret;
     
     private int rotationspeed;
+
+    private int cooldown;
+    private int lastShotTime;
     
     private boolean firststart;
     
-    private int cooldown;
-    private int lastShotTime;
     private GreenfootSound shot = new GreenfootSound("shot.mp3");
-     private GreenfootSound bigshot = new GreenfootSound("bigshot.mp3");
+    private GreenfootSound bigshot = new GreenfootSound("bigshot.mp3");
     private GreenfootImage image;
     
     public Enemyturret(Enemybody relatedTankbody, Ghostturret relatedGhostturret){
@@ -30,6 +32,7 @@ public class Enemyturret extends Enemy
         this.bigshot.setVolume(15);
         this.firststart = true;
         
+        //set certain variables depending on level
         if (relatedTankbody.getLvl() == 1){
             image = getImage();
             image.scale(image.getWidth()* 2, image.getHeight()* 2);
@@ -67,6 +70,7 @@ public class Enemyturret extends Enemy
      */
     public void act()
     {
+        //if statement to check if relatedBody is still alive or otherwise remove the turret as well
         if (relatedTankbody.getWorld() != null){
             if (firststart){
                 turnTowards(getPlayerX(), getPlayerY());
@@ -81,6 +85,8 @@ public class Enemyturret extends Enemy
         }
     }
     
+    //complicated function to aim at player and fire when in line of sight with a certain margin of error. 
+    //It gets the playerdirection from the ghostturret
     private void aim(){
         int targetRotation = relatedGhostturret.getPlayerDirection();
         relatedTankbody.setPlayerDirection(targetRotation);
@@ -109,6 +115,7 @@ public class Enemyturret extends Enemy
             
         }
     }
+    //create new enemybullet instance and fire it towards player. Change size and sound of bullet depending on mode (level)
     private void fire(int mode){
         if (lastShotTime + cooldown <= getTime()){
             if (mode == 1){  

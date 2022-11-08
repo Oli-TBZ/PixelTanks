@@ -4,8 +4,8 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * The simple Actor is for universal use to display counters and score etc.
  * It does not really do anything on its own
  * 
- * @OliverAmmann
- * @version (a version number or a date)
+ * @OliverAmmann & @SenthilNagendran
+ * Stable Version 1.1
  */
 public class SimpleActor extends greenfoot.Actor
 {

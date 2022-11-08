@@ -1,9 +1,8 @@
 #BlueJ class context
 comment0.target=Player
-comment0.text=\r\n\ The\ Player\ class\ is\ the\ parent\ class\ of\ all\ the\ player\ objects.\ It\ contains\ universal\ functions\ that\ can\ be\r\n\ \r\n\ @author\ (your\ name)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment0.text=\r\n\ Parent\ Class\ of\ all\ enemy\ objects.\ Contains\ certain\ universal\ functions\ and\ movement\ functions\ (keypressed).\r\n\ \r\n\ @OliverAmmann\ &\ @SenthilNagendran\r\n\ Stable\ Version\ 1.1\r\n
 comment1.params=
 comment1.target=void\ act()
-comment1.text=\r\n\ Act\ -\ do\ whatever\ the\ player\ wants\ to\ do.\ This\ method\ is\ called\ whenever\r\n\ the\ 'Act'\ or\ 'Run'\ button\ gets\ pressed\ in\ the\ environment.\r\n
 comment2.params=
 comment2.target=void\ drive()
 comment3.params=

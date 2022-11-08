@@ -1,10 +1,11 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class playerbullet here.
+ * Subclass of enemy class. The enemybullet is the bullet, enemy-tanks use to kill the player. 
+ * It just moves in the direction given and checks for contact. Also it checks the time to implement a cooldown to shoot.
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @OliverAmmann & @SenthilNagendran
+ * Stable Version 1.1
  */
 public class Enemybullet extends Enemy{
     
@@ -20,6 +21,7 @@ public class Enemybullet extends Enemy{
         
         this.mode = mode;
         
+        //check mode and change size for bossfight
         if (mode == 1){
             this.speed = 5;
             image.scale(image.getWidth()*2, image.getHeight()*2);  
@@ -41,6 +43,7 @@ public class Enemybullet extends Enemy{
      */
     public void act()
     {
+        //firstrun statement to set speed of bullet depending on bossmode or not
         if (firstrun){
             if (mode == 1){
                 move(70);
@@ -51,6 +54,7 @@ public class Enemybullet extends Enemy{
             firstrun = false;
         }
         move(speed);
+        //check if player or edge has been touched
         if (isAtEdge() || isTouching(Playerbody.class)){
             //removeTouching(Playerbody.class);
             getWorld().removeObject(this);

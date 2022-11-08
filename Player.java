@@ -1,17 +1,13 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * The Player class is the parent class of all the player objects. It contains universal functions that can be
+ * Parent Class of all enemy objects. Contains certain universal functions and movement functions (keypressed).
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @OliverAmmann & @SenthilNagendran
+ * Stable Version 1.1
  */
 public class Player extends Actor
 {
-    /**
-     * Act - do whatever the player wants to do. This method is called whenever
-     * the 'Act' or 'Run' button gets pressed in the environment.
-     */
     public void act()
     {
 
@@ -46,6 +42,7 @@ public class Player extends Actor
            //adjustAngle(-2);
         }
     }
+    //return coordinates of playerbody
     public int getPlayerX(){
         if (!getWorld().getObjects(Playerbody.class).isEmpty()){
             Actor reference = getWorld().getObjects(Playerbody.class).get(0);
