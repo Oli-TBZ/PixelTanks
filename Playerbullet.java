@@ -39,7 +39,7 @@ public class Playerbullet extends Player{
             if (isTouching(Enemybody.class) && ((Battleground) getWorld()).getLvl() != 3){
                 ((Battleground) getWorld()).addScore();
                 removeTouching(Enemybody.class);
-            } else{
+            } else if (isTouching(Enemybody.class) && ((Battleground) getWorld()).getLvl() == 3){
                 ((Battleground) getWorld()).reduceBossHp();
             }
             getWorld().removeObject(this);

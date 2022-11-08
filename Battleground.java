@@ -1,5 +1,6 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import greenfoot.GreenfootSound;
+import java.util.List;
 
 /**
  * Write a description of class Battleground here.
@@ -12,6 +13,9 @@ public class Battleground extends World
     private Actor timerDisplay = new SimpleActor();
     private Actor scoreDisplay = new SimpleActor();
     private Actor gameOverDisplay = new SimpleActor();
+    private Actor startDisplay = new SimpleActor();
+    private Actor creditsDisplay = new SimpleActor();
+    
     private int score;
     private int timeElapsed;
     private int timeCounter; 
@@ -22,6 +26,9 @@ public class Battleground extends World
     private int timecache;
     
     private int[] enemySpawnlocation;
+    
+    private GreenfootSound lvlmusic = new GreenfootSound("lvl.mp3");
+    private GreenfootSound bossmusic = new GreenfootSound("boss.mp3");
     /**
      * Constructor for objects of class Battleground.
      * 
@@ -36,11 +43,16 @@ public class Battleground extends World
         updateTimerDisplay();
         addObject(timerDisplay,50,20);
         addObject(scoreDisplay,950,20);
+        addObject(startDisplay, 500, 380);
+        addObject(creditsDisplay, 500, 420);
         
-        enemyLvl = 1;
-        maxEnemies = 1;
-        score = 23;
-        bossHp = 4;
+        startDisplay.setImage(new GreenfootImage("PixelTanks", 70, null, null));
+        creditsDisplay.setImage(new GreenfootImage("By Oliver Ammann & Senthil Nagendran", 30, null, null));
+        
+        this.enemyLvl = 1;
+        this.maxEnemies = 1;
+        this.score = 0;
+        this.bossHp = 4;
     }
     public void act(){
         timeCounter = (timeCounter+1)%55;
@@ -50,6 +62,12 @@ public class Battleground extends World
         }
         if (enemyLvl == 3){
             checkBossStatus();
+            lvlmusic.stop();
+            bossmusic.playLoop();
+        } 
+        if (startDisplay.getWorld() != null){
+            removeObject(startDisplay);
+            removeObject(creditsDisplay);
         }
         updateScoreDisplay();
         enemySpawnControll();
@@ -83,10 +101,10 @@ public class Battleground extends World
         } else if (score >= 16 && score < 20){
             enemyLvl = 2;
             maxEnemies = 2;
-        } else if (score >= 20 && score <= 26){
+        } else if (score >= 20 && score < 26){
             enemyLvl = 2;
             maxEnemies = 3;
-        } else if (score > 26){
+        } else if (score >= 26){
             enemyLvl = 3;
             maxEnemies = 1;
         }
@@ -109,6 +127,10 @@ public class Battleground extends World
         addObject(playerbody, 200, 200);
         Playerturret playerturret = new Playerturret();
         addObject(playerturret, 200, 200);
+        
+        lvlmusic.setVolume(10);
+        bossmusic.setVolume(10);
+        lvlmusic.playLoop(); 
     }
     public int getTime(){
         return timeElapsed;
@@ -133,6 +155,9 @@ public class Battleground extends World
         if (getObjects(Playerbody.class).isEmpty()){
             addObject(gameOverDisplay,500,400);
             gameOverDisplay.setImage(new GreenfootImage("GAME OVER", 60, new Color(204,51,0), null));
+            bossmusic.stop();
+            lvlmusic.stop();
+            
             GreenfootSound loss = new GreenfootSound("lost.mp3");
             loss.setVolume(15);
             loss.play();
@@ -143,6 +168,9 @@ public class Battleground extends World
         if (bossHp == 0){
             addObject(gameOverDisplay,500,400);
             gameOverDisplay.setImage(new GreenfootImage("YOU WIN", 60, new Color(0,153,0), null));
+            bossmusic.stop();
+            lvlmusic.stop();
+            
             GreenfootSound win = new GreenfootSound("win.mp3");
             win.setVolume(15);
             win.play();

@@ -55,7 +55,7 @@ public class Enemybody extends Enemy
             image.setTransparency(0);
             setImage(image);
             
-            this.speed = 1;
+            this.speed = 2;
             this.rotationspeed = 3;
             this.drivingInterval = 2;    
         }
@@ -69,6 +69,11 @@ public class Enemybody extends Enemy
         if (firststart){
             turnTowards(getPlayerX(), getPlayerY());
             firststart = false;
+            if (isTouching(Enemybody.class)){
+                int [] replaceLocation = ((Battleground) getWorld()).getSpawnLocation();
+                setLocation(replaceLocation[0],replaceLocation[1]);
+            }
+            
             getImage().setTransparency(255);
             healthbar.getImage().setTransparency(0);
             getWorld().addObject(healthbar, getX(), getY() - 30);

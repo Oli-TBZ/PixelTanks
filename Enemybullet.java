@@ -10,12 +10,15 @@ public class Enemybullet extends Enemy{
     
     private boolean firstrun;
     private int speed;
+    private int mode;
 
     public Enemybullet(int xLocation, int yLocation, int rotation, int mode){
         setLocation(xLocation,yLocation);
         setRotation(rotation);
         
         GreenfootImage image = getImage();
+        
+        this.mode = mode;
         
         if (mode == 1){
             this.speed = 5;
@@ -39,13 +42,17 @@ public class Enemybullet extends Enemy{
     public void act()
     {
         if (firstrun){
-            move(43);
+            if (mode == 1){
+                move(70);
+            } else {
+                move(43);
+            }
             getImage().setTransparency(255);
             firstrun = false;
         }
         move(speed);
         if (isAtEdge() || isTouching(Playerbody.class)){
-            removeTouching(Playerbody.class);
+            //removeTouching(Playerbody.class);
             getWorld().removeObject(this);
         }
     }
